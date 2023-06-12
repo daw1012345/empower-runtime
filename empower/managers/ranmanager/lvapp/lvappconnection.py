@@ -856,6 +856,11 @@ class LVAPPConnection(RANConnection):
         quantum = slc.properties['quantum']
         sta_scheduler = slc.properties['sta_scheduler']
 
+        aifsn = slc.properties['aifsn']
+        cwmin = slc.properties['cwmin']
+        cwmax = slc.properties['cwmax']
+        txop = slc.properties['txop']
+
         if self.device.addr in slc.devices:
 
             properties = slc.devices[self.device.addr]
@@ -869,11 +874,16 @@ class LVAPPConnection(RANConnection):
             if 'sta_scheduler' in properties:
                 sta_scheduler = properties['sta_scheduler']
 
+
         flags = Container(amsdu_aggregation=amsdu_aggregation)
 
         msg = Container(length=self.proto.SET_SLICE.sizeof(),
                         flags=flags,
                         iface_id=block.block_id,
+                        aifsn=aifsn,
+                        cwmin=cwmin,
+                        cwmax=cwmax,
+                        txop=txop,
                         quantum=quantum,
                         sta_scheduler=sta_scheduler,
                         slice_id=slc.slice_id,

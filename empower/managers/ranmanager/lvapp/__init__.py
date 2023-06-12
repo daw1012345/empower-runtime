@@ -528,6 +528,10 @@ SET_SLICE = Struct(
         "padding" / Padding(7),
         "amsdu_aggregation" / Flag
     ),
+    "aifsn" / Int32ub,
+    "cwmin" / Int32ub,
+    "cwmax" / Int32ub,
+    "txop" / Int32ub,
     "quantum" / Int32ub,
     "ssid" / Bytes(WIFI_NWID_MAXSIZE + 1)
 )
@@ -570,6 +574,10 @@ SLICE_STATUS_RESPONSE = Struct(
         "padding" / Padding(7),
         "amsdu_aggregation" / Flag
     ),
+    "aifsn" / Int32ub,
+    "cwmin" / Int32ub,
+    "cwmax" / Int32ub,
+    "txop" / Int32ub,
     "quantum" / Int32ub,
     "ssid" / Bytes(WIFI_NWID_MAXSIZE + 1)
 )

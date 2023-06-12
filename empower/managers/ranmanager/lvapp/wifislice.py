@@ -36,6 +36,10 @@ class WiFiSlice(Slice):
     """EmPOWER Wi-Fi Slice Class."""
 
     default_properties = {
+        'aifsn': 2,
+        'cwmin': 7,
+        'cwmax': 15,
+        'txop': 0,
         'amsdu_aggregation': False,
         'quantum': 12000,
         'sta_scheduler': WIFI_SLICE_SCHEDULER_RR
@@ -44,12 +48,16 @@ class WiFiSlice(Slice):
     def to_str(self):
         """Return an ASCII representation of the object."""
 
-        msg = "[Wi-Fi] id %s amsdu_aggregation %s quantum %s sta_scheduler %s"
+        msg = "[Wi-Fi] [id=%s][amsdu_aggregation=%s][quantum=%s][sta_scheduler=%s] | [aifsn=%s][cwmin=%s][cwmax=%s][txop=%s]"
 
         return msg % (self.slice_id,
                       self.properties['amsdu_aggregation'],
                       self.properties['quantum'],
-                      WIFI_SLICE_SCHEDULERS[self.properties['sta_scheduler']])
+                      WIFI_SLICE_SCHEDULERS[self.properties['sta_scheduler']],
+                      self.properties['aifsn'],
+                      self.properties['cwmin'],
+                      self.properties['cwmax'],
+                      self.properties['txop'])
 
     def _parse_properties(self, descriptor=None):
 
@@ -75,6 +83,42 @@ class WiFiSlice(Slice):
                 properties['quantum'] = quantum
             else:
                 properties['quantum'] = int(quantum)
+        
+        if 'aifsn' in descriptor:
+
+            aifsn = descriptor['aifsn']
+
+            if isinstance(aifsn, int):
+                properties['aifsn'] = aifsn
+            else:
+                properties['aifsn'] = int(aifsn)
+
+        if 'cwmin' in descriptor:
+
+            cwmin = descriptor['cwmin']
+
+            if isinstance(cwmin, int):
+                properties['cwmin'] = cwmin
+            else:
+                properties['cwmin'] = int(cwmin)
+
+        if 'cwmax' in descriptor:
+
+            cwmax = descriptor['cwmax']
+
+            if isinstance(cwmax, int):
+                properties['cwmax'] = cwmax
+            else:
+                properties['cwmax'] = int(cwmax)
+
+        if 'txop' in descriptor:
+
+            txop = descriptor['txop']
+
+            if isinstance(txop, int):
+                properties['txop'] = txop
+            else:
+                properties['txop'] = int(txop)
 
         if 'sta_scheduler' in descriptor:
 

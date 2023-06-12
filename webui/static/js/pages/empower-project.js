@@ -15,6 +15,10 @@ BOX__LTE_SLICES = "lte_slices_box"
 
 BODY__PROPERTIES = "properties_body"
 
+DEFAULT_AIFSN_VALUE = 2
+DEFAULT_CWMIN_VALUE = 7
+DEFAULT_CWMAX_VALUE = 15
+DEFAULT_TXOP_VALUE = 0
 DEFAULT_QUANTUM_VALUE = "5000"
 DEFAULT_STA_SCHEDULER_VALUE = "0"
 DEFAULT_AMSDU_AGGREGATION_VALUE = false
@@ -22,6 +26,9 @@ DEFAULT_RBGS_VALUE = "5"
 DEFAULT_UE_SCHEDULER_VALUE = "0"
 
 LAST_QUANTUM_VALUE = DEFAULT_QUANTUM_VALUE
+LAST_CWMIN_VALUE = DEFAULT_CWMIN_VALUE
+LAST_CWMAX_VALUE = DEFAULT_CWMAX_VALUE
+LAST_TXOP_VALUE = DEFAULT_TXOP_VALUE
 LAST_STA_SCHEDULER_VALUE = DEFAULT_STA_SCHEDULER_VALUE
 LAST_AMSDU_AGGREGATION_VALUE = DEFAULT_AMSDU_AGGREGATION_VALUE
 LAST_RBGS_VALUE = DEFAULT_RBGS_VALUE
@@ -1166,6 +1173,11 @@ function trigger_mng_slice_modal(op, tech, key=null){
           $('#mng_slice_id').val("")
           CF._enable($('#mng_slice_id'))
           $('#mng_quantum').val(DEFAULT_QUANTUM_VALUE)
+          $('#mng_aifsn').val(DEFAULT_AIFSN_VALUE)
+          $('#mng_cwmin').val(DEFAULT_CWMIN_VALUE)
+          $('#mng_cwmax').val(DEFAULT_CWMAX_VALUE)
+          $('#mng_txop').val(DEFAULT_TXOP_VALUE)
+
           CF._enable($('#mng_quantum'))
           $('#mng_sta_scheduler').val(DEFAULT_STA_SCHEDULER_VALUE)
           CF._enable($('#mng_sta_scheduler'))
@@ -1269,6 +1281,10 @@ function mng_WIFI_SLICE(op){
       data.properties.quantum = parseInt($("#mng_quantum").val())
       data.properties.sta_scheduler = parseInt($("#mng_sta_scheduler").val())
       data.properties.amsdu_aggregation = $("#mng_amsdu_aggregation").prop("checked")
+      data.properties.aifsn = parseInt($("#mng_aifsn").val())
+      data.properties.cwmin = parseInt($("#mng_cwmin").val())
+      data.properties.cwmax = parseInt($("#mng_cwmax").val())
+      data.properties.txop = parseInt($("#mng_txop").val())
 
       data.devices = {}
       table_length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
@@ -1322,6 +1338,10 @@ function mng_WIFI_SLICE(op){
       data.properties.quantum = parseInt($("#mng_quantum").val())
       data.properties.sta_scheduler = parseInt($("#mng_sta_scheduler").val())
       data.properties.amsdu_aggregation = $("#mng_amsdu_aggregation").prop("checked")
+      data.properties.aifsn = parseInt($("#mng_aifsn").val())
+      data.properties.cwmin = parseInt($("#mng_cwmin").val())
+      data.properties.cwmax = parseInt($("#mng_cwmax").val())
+      data.properties.txop = parseInt($("#mng_txop").val())
 
       data.devices = {}
       table_length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
