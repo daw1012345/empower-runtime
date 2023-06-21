@@ -1295,6 +1295,11 @@ function mng_WIFI_SLICE(op){
           let q = $("#mng_quantum_device_"+key).val()
           let ss = $("#mng_sta_scheduler_device_"+key).val()
           let aa = $("#mng_amsdu_aggregation_device_"+key).prop("checked")
+          let aifsn = parseInt($("#mng_aifsn").val())
+          let cwmin = parseInt($("#mng_cwmin").val())
+          let cwmax = parseInt($("#mng_cwmax").val())
+          let txop = parseInt($("#mng_txop").val())
+
           let device_id = $("#device_id_"+key).text()
           data.devices[device_id] = {}
           // if ((q != data.properties.quantum) ||
@@ -1309,6 +1314,10 @@ function mng_WIFI_SLICE(op){
             // }
             // if (aa != data.properties.amsdu_aggregation){
               dev_prop.amsdu_aggregation = aa
+              dev_prop.aifsn = aifsn
+              dev_prop.cwmin = cwmin
+              dev_prop.cwmax = cwmax
+              dev_prop.txop = txop
           //   }
           // }
         }
@@ -1338,10 +1347,10 @@ function mng_WIFI_SLICE(op){
       data.properties.quantum = parseInt($("#mng_quantum").val())
       data.properties.sta_scheduler = parseInt($("#mng_sta_scheduler").val())
       data.properties.amsdu_aggregation = $("#mng_amsdu_aggregation").prop("checked")
-      data.properties.aifsn = parseInt($("#mng_aifsn").val())
-      data.properties.cwmin = parseInt($("#mng_cwmin").val())
-      data.properties.cwmax = parseInt($("#mng_cwmax").val())
-      data.properties.txop = parseInt($("#mng_txop").val())
+      let aifsn = parseInt($("#mng_aifsn").val())
+      let cwmin = parseInt($("#mng_cwmin").val())
+      let cwmax = parseInt($("#mng_cwmax").val())
+      let txop = parseInt($("#mng_txop").val())
 
       data.devices = {}
       table_length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
@@ -1353,6 +1362,11 @@ function mng_WIFI_SLICE(op){
           let ss = $("#mng_sta_scheduler_device_"+key).val()
           let aa = $("#mng_amsdu_aggregation_device_"+key).prop("checked")
           let device_id = $("#device_id_"+key).text()
+
+          let aifsn = $("#mng_aifsn_device_"+key).val();
+          let cwmin = $("#mng_cwmin_device_"+key).val();
+          let cwmax = $("#mng_cwmax_device_"+key).val();
+          let txop = $("#mng_txop_device_"+key).val();
           data.devices[device_id] = {}
           // if ((q != data.properties.quantum) ||
           //     (ss != data.properties.sta_scheduler) ||
@@ -1366,6 +1380,12 @@ function mng_WIFI_SLICE(op){
             // }
             // if (aa != data.properties.amsdu_aggregation){
               dev_prop.amsdu_aggregation = aa
+
+              dev_prop.amsdu_aggregation = aa
+              dev_prop.aifsn = aifsn
+              dev_prop.cwmin = cwmin
+              dev_prop.cwmax = cwmax
+              dev_prop.txop = txop
           //   }
           // }
         }
@@ -1534,6 +1554,10 @@ function toggle_properties(tech, key){
       fill_with_scheduler_options(select, tech)
       select.val($('#mng_sta_scheduler').val())
       $('#mng_amsdu_aggregation_device_'+key).prop("checked", $('#mng_amsdu_aggregation').prop("checked"))
+      $('#mng_aifsn_device_'+key).val($('#mng_aifsn').val())
+      $('#mng_cwmin_device_'+key).val($('#mng_cwmin').val())
+      $('#mng_cwmax_device_'+key).val($('#mng_cwmax').val())
+      $('#mng_txop_device_'+key).val($('#mng_txop').val())
     }
     else if (tech === 'LTE'){
       $('#mng_rbgs_device_'+key).val($('#mng_rbgs').val())
@@ -1549,6 +1573,62 @@ function toggle_properties(tech, key){
     // console.log("HIDE",$("#properties_device_"+key))
     CF._hide($("#properties_device_"+key))
   }
+}
+
+function update_aifsn_on_cascade(){
+  let value = ($('#mng_aifsn').val())
+  // if (CF._is_null(LAST_QUANTUM_VALUE)){
+  //   LAST_QUANTUM_VALUE = value
+  // }
+  // let length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
+  // for(let key = 0; key < length; key++){
+  //   if (LAST_QUANTUM_VALUE === $('#mng_quantum_device_'+key).val()){
+  //     $('#mng_quantum_device_'+key).val(value)
+  //   }
+  // }
+  LAST_AIFSN_VALUE = value
+}
+
+function update_cwmin_on_cascade(){
+  let value = ($('#mng_cwmin').val())
+  // if (CF._is_null(LAST_QUANTUM_VALUE)){
+  //   LAST_QUANTUM_VALUE = value
+  // }
+  // let length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
+  // for(let key = 0; key < length; key++){
+  //   if (LAST_QUANTUM_VALUE === $('#mng_quantum_device_'+key).val()){
+  //     $('#mng_quantum_device_'+key).val(value)
+  //   }
+  // }
+  LAST_CWMIN_VALUE = value
+}
+
+function update_aifsn_on_cascade(){
+  let value = ($('#mng_cwmax').val())
+  // if (CF._is_null(LAST_QUANTUM_VALUE)){
+  //   LAST_QUANTUM_VALUE = value
+  // }
+  // let length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
+  // for(let key = 0; key < length; key++){
+  //   if (LAST_QUANTUM_VALUE === $('#mng_quantum_device_'+key).val()){
+  //     $('#mng_quantum_device_'+key).val(value)
+  //   }
+  // }
+  LAST_CWMAX_VALUE = value
+}
+
+function update_aifsn_on_cascade(){
+  let value = ($('#mng_txop').val())
+  // if (CF._is_null(LAST_QUANTUM_VALUE)){
+  //   LAST_QUANTUM_VALUE = value
+  // }
+  // let length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
+  // for(let key = 0; key < length; key++){
+  //   if (LAST_QUANTUM_VALUE === $('#mng_quantum_device_'+key).val()){
+  //     $('#mng_quantum_device_'+key).val(value)
+  //   }
+  // }
+  LAST_TXOP_VALUE = value
 }
 
 function update_quantum_on_cascade(){

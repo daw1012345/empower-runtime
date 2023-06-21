@@ -276,13 +276,13 @@ class LVAPPConnection(RANConnection):
         """Handle an incoming CAPS message."""
 
         for block in caps.blocks:
-
             self.device.blocks[block.block_id] = \
                 ResourceBlock(self.device,
                               block.block_id,
                               EtherAddress(block.hwaddr),
                               block.channel,
                               block.band)
+            print(self.device.blocks[block.block_id])
 
         # set state to online
         self.device.set_online()
@@ -652,6 +652,30 @@ class LVAPPConnection(RANConnection):
                 slc.devices[self.device.addr] = dict()
             slc.devices[self.device.addr]['sta_scheduler'] = \
                 status.sta_scheduler
+
+        if slc.properties['aifsn'] != status.aifsn:
+            if self.device.addr not in slc.devices:
+                slc.devices[self.device.addr] = dict()
+            slc.devices[self.device.addr]['aifsn'] = \
+                status.aifsn
+
+        if slc.properties['cwmin'] != status.cwmin:
+            if self.device.addr not in slc.devices:
+                slc.devices[self.device.addr] = dict()
+            slc.devices[self.device.addr]['cwmin'] = \
+                status.cwmin
+
+        if slc.properties['cwmax'] != status.cwmax:
+            if self.device.addr not in slc.devices:
+                slc.devices[self.device.addr] = dict()
+            slc.devices[self.device.addr]['cwmax'] = \
+                status.cwmax
+
+        if slc.properties['txop'] != status.txop:
+            if self.device.addr not in slc.devices:
+                slc.devices[self.device.addr] = dict()
+            slc.devices[self.device.addr]['txop'] = \
+                status.txop
 
         project.save()
         project.refresh_from_db()
