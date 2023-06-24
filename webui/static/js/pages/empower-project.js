@@ -1347,10 +1347,10 @@ function mng_WIFI_SLICE(op){
       data.properties.quantum = parseInt($("#mng_quantum").val())
       data.properties.sta_scheduler = parseInt($("#mng_sta_scheduler").val())
       data.properties.amsdu_aggregation = $("#mng_amsdu_aggregation").prop("checked")
-      let aifsn = parseInt($("#mng_aifsn").val())
-      let cwmin = parseInt($("#mng_cwmin").val())
-      let cwmax = parseInt($("#mng_cwmax").val())
-      let txop = parseInt($("#mng_txop").val())
+      data.properties.aifsn = parseInt($("#mng_aifsn").val())
+      data.properties.cwmin = parseInt($("#mng_cwmin").val())
+      data.properties.cwmax = parseInt($("#mng_cwmax").val())
+      data.properties.txop = parseInt($("#mng_txop").val())
 
       data.devices = {}
       table_length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
