@@ -1209,6 +1209,17 @@ function trigger_mng_slice_modal(op, tech, key=null){
             $('#mng_amsdu_aggregation').val(data.properties.amsdu_aggregation)
             CF._enable($('#amsdu_aggregation'))
 
+            $('#mng_aifsn').val(data.properties.aifsn)
+            CF._enable($('#mng_aifsn'))
+            $('#mng_cwmin').val(data.properties.cwmin)
+            CF._enable($('#mng_cwmin'))
+            $('#mng_cwmax').val(data.properties.cwmax)
+            CF._enable($('#mng_cwmax'))
+            $('#mng_txop').val(data.properties.txop)
+            CF._enable($('#mng_txop'))
+
+
+
             refresh_mng_slice_modal_datatable(tech, op, data)
           }
 
@@ -1343,14 +1354,19 @@ function mng_WIFI_SLICE(op){
 
       data.slice_id = parseInt($("#mng_slice_id").val())
 
+      let aifsn = parseInt($("#mng_aifsn").val())
+      let cwmin = parseInt($("#mng_cwmin").val())
+      let cwmax = parseInt($("#mng_cwmax").val())
+      let txop = parseInt($("#mng_txop").val())
+
       data.properties ={}
       data.properties.quantum = parseInt($("#mng_quantum").val())
       data.properties.sta_scheduler = parseInt($("#mng_sta_scheduler").val())
       data.properties.amsdu_aggregation = $("#mng_amsdu_aggregation").prop("checked")
-      data.properties.aifsn = parseInt($("#mng_aifsn").val())
-      data.properties.cwmin = parseInt($("#mng_cwmin").val())
-      data.properties.cwmax = parseInt($("#mng_cwmax").val())
-      data.properties.txop = parseInt($("#mng_txop").val())
+      data.properties.aifsn = aifsn
+      data.properties.cwmin = cwmin
+      data.properties.cwmax = cwmax
+      data.properties.txop = txop
 
       data.devices = {}
       table_length = DATATABLE_MNG_WIFI_SLICE_MODAL.rows().count()
@@ -1363,10 +1379,10 @@ function mng_WIFI_SLICE(op){
           let aa = $("#mng_amsdu_aggregation_device_"+key).prop("checked")
           let device_id = $("#device_id_"+key).text()
 
-          let aifsn = $("#mng_aifsn_device_"+key).val();
-          let cwmin = $("#mng_cwmin_device_"+key).val();
-          let cwmax = $("#mng_cwmax_device_"+key).val();
-          let txop = $("#mng_txop_device_"+key).val();
+          // let aifsn = $("#mng_aifsn_device_"+key).val();
+          // let cwmin = $("#mng_cwmin_device_"+key).val();
+          // let cwmax = $("#mng_cwmax_device_"+key).val();
+          // let txop = $("#mng_txop_device_"+key).val();
           data.devices[device_id] = {}
           // if ((q != data.properties.quantum) ||
           //     (ss != data.properties.sta_scheduler) ||
@@ -1381,7 +1397,6 @@ function mng_WIFI_SLICE(op){
             // if (aa != data.properties.amsdu_aggregation){
               dev_prop.amsdu_aggregation = aa
 
-              dev_prop.amsdu_aggregation = aa
               dev_prop.aifsn = aifsn
               dev_prop.cwmin = cwmin
               dev_prop.cwmax = cwmax
@@ -1603,7 +1618,7 @@ function update_cwmin_on_cascade(){
   LAST_CWMIN_VALUE = value
 }
 
-function update_aifsn_on_cascade(){
+function update_cwmax_on_cascade(){
   let value = ($('#mng_cwmax').val())
   // if (CF._is_null(LAST_QUANTUM_VALUE)){
   //   LAST_QUANTUM_VALUE = value
@@ -1617,7 +1632,8 @@ function update_aifsn_on_cascade(){
   LAST_CWMAX_VALUE = value
 }
 
-function update_aifsn_on_cascade(){
+
+function update_txop_on_cascade(){
   let value = ($('#mng_txop').val())
   // if (CF._is_null(LAST_QUANTUM_VALUE)){
   //   LAST_QUANTUM_VALUE = value
